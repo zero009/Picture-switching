@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8"/>
+	<title></title>
+	<style type="text/css">
+	      *{margin: 0;padding:0;}
+	   #wrap{width: 400px;margin: 0 auto;text-align: center;}
+        #content{width: 400px;height: 400px;border:10px solid #ccc;overflow: hidden;position: relative;}
+        input{width: 50px;height: 30px;margin:10px 0;}
+        p{background: #000;color: #fff;height: 30px;position: absolute;top:0;width: 400px;line-height: 30px;filter:alpha(opacity=50);opacity: 0.5;}
+	    span{background: #000;display: block;width: 400px;color: #fff;height: 30px;position: absolute;bottom: 0;line-height: 30px;filter:alpha(opacity=50);opacity: 0.5;}
+	   	</style>
+	   	<script type="text/javascript">
+            window.onload = function()
+            {
+            	var oBtn = document.getElementsByTagName('input');
+            	var oP = document.getElementById('p');
+            	var oSpan = document.getElementById('span');
+            	var oImg = document.getElementById('img');
+            	var array = ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+            	var text = ['美少女战士','圣斗士','皮卡丘','美女']
+                var i = array.length;
+                var num = 0 ;
+                function Switch()//引用一个函数
+                {
+                	img.src = array[num];
+                	oP.innerHTML = num+1 + '/' + i;
+                	oSpan.innerHTML = text[num];
+                }
+                Switch();//对页面进行初始化
+            	oBtn[0].onclick = function()//上一页
+            	{
+        		   num--;      //图片递减         	   
+                   if(num ==-1 )//当点击到第一张时设定判断元素
+                   {
+                   	  num = i-1;//对图片索引进行重设
+                   }
+                   Switch();//调用函数输输出点击后的结果
+            	}
+                oBtn[1].onclick = function()//下一页
+                {
+                	num++;//图片递增
+                	if(num == i)//当点击到最后一张时设定判断元素
+                	{
+                       num =0;//对图片索引进行重设
+                	}
+                	Switch();//调用函数输出点击后的结果
+                }
+                oBtn[2].onclick = function()//图片进行轮播
+                {
+                	this.time=setInterval(function(){//引用一个计时器
+                		num++;
+                		if(num ==i)
+	                	{
+	                	  num=0; 
+	                	}	                	
+	                	Switch();
+                	},1000)
+                }
+                oBtn[3].onclick = function() 
+                {
+                	clearInterval(oBtn[2].time);//清除计时器
+                }
+            }
+	   	</script>
+</head>
+<body>
+   <div id="wrap">
+       <input type="button" value="上一页"/>
+       <input type="button" value="下一页"/>
+       <input type="button" value="轮播" />
+       <input type="button" value="暂停" />
+   	   <div id="content">
+   	       
+	   	   <img src="" alt="" width="400" height="400" id="img" />
+	   	   <p id="p">图片加载中……</p>
+	   	   <span id="span">文字加载中……</span>
+   	   </div>
+   </div>
+</body>
+</html>
